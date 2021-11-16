@@ -122,38 +122,18 @@ div {
     margin-top: 25px;
 }
 
-#histogram-output {
+#histogram-output,
+#median-cut-output,
+#kmeans-output,
+#hdbscan-output {
     display: none;
     padding-top: 25px;
 }
 
-#median-cut-output {
-    display: none;
-    padding-top: 25px;
-}
-
-#kmeans-output {
-    display: none;
-    padding-top: 25px;
-}
-
-#histogram-plot {
-    margin-left: auto;
-    margin-right: auto;
-    width: 600px;
-    height: 400px;
-    margin-top: 25px;
-}
-
-#median-cut-plot {
-    margin-left: auto;
-    margin-right: auto;
-    width: 600px;
-    height: 400px;
-    margin-top: 25px;
-}
-
-#kmeans-plot {
+#histogram-plot,
+#median-cut-plot,
+#kmeans-plot,
+#hdbscan-plot {
     margin-left: auto;
     margin-right: auto;
     width: 600px;

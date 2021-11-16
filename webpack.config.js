@@ -1,10 +1,10 @@
+const path = require('path');
+
 module.exports = {
-  entry: "./javascript/app.js",
+  mode: 'development',
+  entry: './javascript/app.js',
   output: {
     path: __dirname,
-    filename: "./public/javascript/bundle.js"
+    filename: './public/javascript/bundle.js',
   },
-  module: {
-    loaders: []
-  }
 };
