@@ -1,6 +1,7 @@
-const ImageUtil = require('./image-util.js');
+import ImageUtil from './image-util.js';
+export default class HDBSCANPlotter {
+    constructor() {}
 
-class HDBSCANPlotter {
     plot(elementId, clusters) {
         var data = _.map(clusters, function (group) {
             var avgColor = ImageUtil.computeAverageColor(group);
@@ -40,5 +41,3 @@ class HDBSCANPlotter {
         Plotly.newPlot(elementId, data, layout);
     }
 }
-
-module.exports = HDBSCANPlotter;

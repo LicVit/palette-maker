@@ -1,15 +1,15 @@
-const $ = require('jquery');
+import * as $ from 'jquery';
 
-const ImageUtil = require('./image-util.js');
-const PaletteTableWriter = require('./palette-table-writer.js');
-const HistogramPaletteBuilder = require('./histogram-palette-builder.js');
-const HistogramPalettePlotter = require('./histogram-palette-plotter.js');
-const MedianCutRunner = require('./median-cut-runner.js');
-const MedianCutPlotter = require('./median-cut-plotter.js');
-const KMeansRunner = require('./kmeans-runner.js');
-const KMeansPlotter = require('./kmeans-plotter.js');
-const HDBSCANRunner = require('./hdbscan-runner.js');
-const HDBSCANPlotter = require('./hdbscan-plotter.js');
+import ImageUtil from './image-util.js';
+import PaletteTableWriter from './palette-table-writer.js';
+import HistogramPaletteBuilder from './histogram-palette-builder.js';
+import HistogramPalettePlotter from './histogram-palette-plotter.js';
+import MedianCutRunner from './median-cut-runner.js';
+import MedianCutPlotter from './median-cut-plotter.js';
+import KMeansRunner from './kmeans-runner.js';
+import KMeansPlotter from './kmeans-plotter.js';
+import HDBSCANRunner from './hdbscan-runner.js';
+import HDBSCANPlotter from './hdbscan-plotter.js';
 
 // Check for the various File API support.
 if (window.File && window.FileReader && window.FileList && window.Blob) {
@@ -156,9 +156,13 @@ function runHDBSCAN() {
     removePaletteTable('#hdbscan-palette');
     $('#hdbscan-output').hide();
     var hdbscanInputValue = parseInt($('#hdbscan-input').val());
+    var hdbscanInputValue2 = parseInt($('#hdbscan-input2').val());
 
     let hdbscanRunner = new HDBSCANRunner();
-    let result = hdbscanRunner.run(hdbscanInputValue, pixels);
+
+    let mappedPixels = pixels.map((pixel) => [pixel.red, pixel.green, pixel.blue]);
+    console.log(mappedPixels);
+    let result = hdbscanRunner.run(hdbscanInputValue || 100, hdbscanInputValue2 || 5, mappedPixels);
 
     let hdbscanPlotter = new HDBSCANPlotter();
     hdbscanPlotter.plot('hdbscan-plot', result.clusters);
