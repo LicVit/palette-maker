@@ -96,12 +96,12 @@ function runHistogram() {
     var histogramInputValue = parseInt($('#histogram-input').val());
 
     let histogramPaletteBuilder = new HistogramPaletteBuilder();
-    bucketedPixelInfos = histogramPaletteBuilder.binPixels(pixels, histogramInputValue);
+    let bucketedPixelInfos = histogramPaletteBuilder.binPixels(pixels, histogramInputValue);
 
     let histogramPalettePlotter = new HistogramPalettePlotter();
     histogramPalettePlotter.plot('histogram-plot', pixels, bucketedPixelInfos.buckets, bucketedPixelInfos.colors, histogramInputValue);
 
-    var bucketsInPalette = _.take(bucketedPixelInfos.buckets, 10);
+    var bucketsInPalette = _.take(bucketedPixelInfos.buckets, 27);
     PaletteTableWriter.drawPaletteTable('#histogram-palette', bucketsInPalette);
 
     $('#histogram-output').show();
