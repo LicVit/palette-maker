@@ -7,10 +7,10 @@ div {
     background: black;
 }
 
-#header img{
+#header img {
     height: 65px;
     margin: auto;
-    display:block;
+    display: block;
     padding-top: 11px;
 }
 
@@ -49,6 +49,19 @@ div {
     line-height: 75px;
 }
 
+#common-settings {
+    margin: 0;
+}
+
+#common-settings-title {
+    color: gray;
+    margin-bottom: 5px;
+}
+
+#extra-union-input {
+    min-width: 100px;
+}
+
 #image-plot-details {
     margin-bottom: 80px;
 }
@@ -56,8 +69,8 @@ div {
 .choose-image-instructions-input {
     display: inline-block;
     float: left;
-    margin-top:29px;
-    margin-left:25px;
+    margin-top: 29px;
+    margin-left: 25px;
 }
 
 .wrapper {
@@ -69,7 +82,7 @@ div {
     display: none;
 }
 
-#source-image{
+#source-image {
     margin-left: auto;
     margin-right: auto;
     width: 200px;
@@ -81,7 +94,7 @@ div {
 }
 
 #plot-content {
-    display:none;
+    display: none;
 }
 
 .input-image-panel {

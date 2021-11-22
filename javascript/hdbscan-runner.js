@@ -3,13 +3,13 @@ import { Hdbscan, euclidean } from 'hdbscan';
 export default class HDBSCANRunner {
     constructor() {}
 
-    run(minClusterSize, minSamples, pixels) {
+    run(minClusterSize, minSamples, pixels, cielabPixels) {
         function pixelIndexToRGB(pixelIndex) {
             const p = pixels[pixelIndex];
             return { red: p[0], green: p[1], blue: p[2] };
         }
 
-        var result = new Hdbscan(pixels, minClusterSize, minSamples, 1.0, euclidean, false);
+        var result = new Hdbscan(cielabPixels || pixels, minClusterSize, minSamples, 1.0, euclidean, false);
 
         console.log('run hdbscan', result);
         // indices of clusters
@@ -24,7 +24,6 @@ export default class HDBSCANRunner {
 
         var noise = result.getNoise();
         noise = noise.map(pixelIndexToRGB);
-
         var means = this.computeMeans(clusters);
         console.log('cluster noise means:');
         console.log(clusters, noise, means);

@@ -59,6 +59,7 @@ function showImageIfPossible() {
 }
 
 var pixels = null;
+var labPixels = null;
 function run() {
     var imgWidth = image.width;
     var imgHeight = image.height;
@@ -87,6 +88,8 @@ function run() {
             });
         }
     }
+
+    labPixels = pixels;
     /* console.log("read image, found " + pixels.length + " pixels");*/
 }
 
@@ -155,14 +158,36 @@ function runKMeans() {
 function runHDBSCAN() {
     removePaletteTable('#hdbscan-palette');
     $('#hdbscan-output').hide();
-    var hdbscanInputValue = parseInt($('#hdbscan-input').val());
-    var hdbscanInputValue2 = parseInt($('#hdbscan-input2').val());
-
+    let hdbscanInputValue = parseInt($('#hdbscan-input').val());
+    let hdbscanInputValue2 = parseInt($('#hdbscan-input2').val());
+    let cielab = document.getElementById('cielab-input').checked;
+    let noise = document.getElementById('noise-input').checked;
+    let extraSplitInputValue = parseInt($('#extra-split-input').val());
+    let extraUnionInputValue = parseInt($('#extra-union-input').val());
+    // TODO: implement splitting of big clusters, union by deltaE (and probably cut off by percentage)
     let hdbscanRunner = new HDBSCANRunner();
 
     let mappedPixels = pixels.map((pixel) => [pixel.red, pixel.green, pixel.blue]);
-    console.log(mappedPixels);
-    let result = hdbscanRunner.run(hdbscanInputValue || 100, hdbscanInputValue2 || 5, mappedPixels);
+    let labPixels;
+    if (cielab) {
+        console.log('Using CIELAB space to detect clusters');
+        labPixels = mappedPixels.map((rgb) => ImageUtil.rgbToLab(rgb));
+    }
+    let result = hdbscanRunner.run(hdbscanInputValue || 100, hdbscanInputValue2 || 5, mappedPixels, cielab ? labPixels : null);
+    if (noise && result.noise && result.noise.length > 0) {
+        let noisePixels = result.noise; //.map((pixelIndex) => pixels[pixelIndex]);
+        let gridLength = 3;
+        let histogramPaletteBuilder = new HistogramPaletteBuilder();
+        let bucketedPixelInfos = histogramPaletteBuilder.binPixels(noisePixels, gridLength);
+
+        let noiseClusters = [];
+        let buckets = bucketedPixelInfos.buckets;
+        Object.keys(buckets).forEach((key) => {
+            noiseClusters.push(buckets[key].concat());
+        });
+
+        result.clusters.push(...noiseClusters);
+    }
 
     let hdbscanPlotter = new HDBSCANPlotter();
     hdbscanPlotter.plot('hdbscan-plot', result.clusters);
