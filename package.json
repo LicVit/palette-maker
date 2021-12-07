@@ -21,7 +21,7 @@
     "dependencies": {
         "babel-loader": "^6.2.8",
         "express": "^4.14.0",
-        "hdbscan": "0.0.1-alpha.1",
+        "hdbscan": "github:LicVit/hdbscan-js#release",
         "jquery": "^3.1.1",
         "lodash": "^4.17.2",
         "webpack": "^1.13.3"

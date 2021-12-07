@@ -9,7 +9,7 @@ export default class HDBSCANRunner {
             return { red: p[0], green: p[1], blue: p[2] };
         }
 
-        var result = new Hdbscan(cielabPixels || pixels, minClusterSize, minSamples, 1.0, euclidean, false);
+        var result = new Hdbscan({ input: cielabPixels || pixels, minClusterSize, minSamples, alpha: 1, metric: euclidean, debug: false });
 
         console.log('run hdbscan', result);
         // indices of clusters
